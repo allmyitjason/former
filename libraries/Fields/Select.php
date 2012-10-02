@@ -64,8 +64,20 @@ class Select extends \Former\Field
   public function fromQuery($results, $value = null, $key = null)
   {
     $options = Helpers::queryToArray($results, $value, $key);
-
+    
+    if (!empty($this->options)) $options = array_merge($this->options, $options);
+    
     if(isset($options)) $this->options = $options;
+  }
+  
+  /**
+   * Add a blank first row
+   * 
+   * @param  array $blank Blank or custom item
+   */
+  public function blank($blank = array('' => ''))
+  {
+    $this->options = array_merge($blank, $this->options);
   }
 
   /**
